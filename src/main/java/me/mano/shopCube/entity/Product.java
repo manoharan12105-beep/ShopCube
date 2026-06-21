@@ -1,7 +1,7 @@
 package me.mano.shopCube.entity;
 
 import java.time.LocalDateTime;
-import java.util.Locale.Category;
+import me.mano.shopCube.enums.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
