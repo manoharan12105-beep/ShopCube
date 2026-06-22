@@ -10,6 +10,9 @@ import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -31,5 +34,13 @@ public class ProductController {
   public List<Product> getAllProducts() {
     return productService.getAllProducts();
   }
+
+  @PostMapping("/addProducts")
+  @PreAuthorize("hasAnyRole('ADMIN')")
+  public List<Product> addProducts(@RequestBody List<Product> prodList) {
+    System.out.println("CONTROLLER HIT");
+    return productService.addProducts(prodList);
+  }
+  
   
 }
