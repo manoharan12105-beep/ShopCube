@@ -24,37 +24,40 @@ public class ProductService {
   // Get all products list
   public List<ProductResponseDto> getAllProducts() {
     List <Product> product = productRepo.findAll();
-    List<ProductResponseDto> prodDto = new ArrayList<>();
+    List<ProductResponseDto> dtoList = new ArrayList<>();
 
     for (Product prod : product) {
-      ProductResponseDto dto = new ProductResponseDto();
-
-      dto.setName(prod.getName());
-      dto.setId(prod.getId());
-      dto.setDescription(prod.getDescription());
-      dto.setPrice(prod.getPrice());
-
-      prodDto.add(dto);
+      dtoList.add(mapToDto(prod));
     }
 
-    return prodDto;
+    return dtoList;
   }
 
+
+
   public List<Product> addProducts(List<Product> prodList) {
+
     return productRepo.saveAll(prodList);
   }
+
+
 
   public ProductResponseDto getProduct(Long id) {
     Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("There is no product with the id : " + id));
 
-    ProductResponseDto productResponseDto = new ProductResponseDto();
-    productResponseDto.setId(product.getId());
-    productResponseDto.setName(product.getName());
-    productResponseDto.setDescription(product.getDescription());
-    productResponseDto.setPrice(product.getPrice());
+    return mapToDto(product);
+  }
 
-    return productResponseDto;
 
+  public ProductResponseDto mapToDto(Product product) {
+    ProductResponseDto dto = new ProductResponseDto();
+
+    dto.setId(product.getId());
+    dto.setName(product.getName());
+    dto.setDescription(product.getDescription());
+    dto.setPrice(product.getPrice());
+
+    return dto;
   }
 
   public Product updateProduct(Long id, ProductRequestDto dto) {
@@ -69,6 +72,8 @@ public class ProductService {
 
     return productRepo.save(product);
   }
+
+  
 
   public String deleteProduct(Long id) {
     Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found"));
