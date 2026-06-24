@@ -1,11 +1,16 @@
 package me.mano.shopCube.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import me.mano.shopCube.entity.Product;
+import me.mano.shopCube.enums.Category;
 
 @Repository
 public interface ProductRepo extends JpaRepository<Product, Long> {
+
+  List<Product> findByCategory(Category category);
   
 }

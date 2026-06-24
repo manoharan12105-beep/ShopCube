@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import me.mano.shopCube.dto.productDto.ProductRequestDto;
 import me.mano.shopCube.dto.productDto.ProductResponseDto;
 import me.mano.shopCube.entity.Product;
+import me.mano.shopCube.enums.Category;
 import me.mano.shopCube.exception.ProductNotFoundException;
 import me.mano.shopCube.repo.ProductRepo;
 
@@ -21,9 +22,11 @@ public class ProductService {
     this.productRepo = productRepo;
   }
 
+
+
   // Get all products list
   public List<ProductResponseDto> getAllProducts() {
-    List <Product> product = productRepo.findAll();
+    List<Product> product = productRepo.findAll();
     List<ProductResponseDto> dtoList = new ArrayList<>();
 
     for (Product prod : product) {
@@ -36,7 +39,6 @@ public class ProductService {
 
 
   public List<Product> addProducts(List<Product> prodList) {
-
     return productRepo.saveAll(prodList);
   }
 
@@ -49,6 +51,7 @@ public class ProductService {
   }
 
 
+
   public ProductResponseDto mapToDto(Product product) {
     ProductResponseDto dto = new ProductResponseDto();
 
@@ -59,6 +62,9 @@ public class ProductService {
 
     return dto;
   }
+
+
+
 
   public Product updateProduct(Long id, ProductRequestDto dto) {
     Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product with id " + id + " not found"));
@@ -81,5 +87,20 @@ public class ProductService {
     productRepo.delete(product);
 
     return "Product with id " + id + " has been deleted.";
+  }
+
+
+
+  public List<ProductResponseDto> getByCategory(String category) {
+    Category cat = Category.valueOf(category.toUpperCase());
+    List<Product> prodList = productRepo.findByCategory(cat);
+    List<ProductResponseDto> dtoList = new ArrayList<>();
+
+    for (Product prod : prodList) {
+      dtoList.add(mapToDto(prod));
+    }
+
+    return dtoList;
+
   }
 }

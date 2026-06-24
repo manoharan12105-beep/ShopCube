@@ -61,4 +61,10 @@ public class ProductController {
   public String deleteProduct(@PathVariable Long id) {
     return productService.deleteProduct(id);
   }
+
+  @GetMapping("/get/category/{category}")
+  @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+  public List<ProductResponseDto> getByCategory(@PathVariable String category) {
+    return productService.getByCategory(category);
+  }
 }
