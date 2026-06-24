@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import me.mano.shopCube.dto.AuthResponseDto;
-import me.mano.shopCube.dto.LoginRequestDto;
-import me.mano.shopCube.dto.RefreshTokenRequestDto;
-import me.mano.shopCube.dto.RegisterRequestDto;
+import jakarta.validation.Valid;
+import me.mano.shopCube.dto.authDto.AuthResponseDto;
+import me.mano.shopCube.dto.authDto.LoginRequestDto;
+import me.mano.shopCube.dto.authDto.RefreshTokenRequestDto;
+import me.mano.shopCube.dto.authDto.RegisterRequestDto;
 import me.mano.shopCube.entity.Users;
 import me.mano.shopCube.service.AuthService;
 
@@ -23,20 +24,20 @@ public class AuthController {
 
 
   @PostMapping("/register")
-  public Users register(@RequestBody RegisterRequestDto user) {
+  public Users register(@Valid @RequestBody RegisterRequestDto user) {
     return authService.register(user);
   }
   
 
 
   @PostMapping("/login")
-  public AuthResponseDto login(@RequestBody LoginRequestDto dto) {
+  public AuthResponseDto login(@Valid @RequestBody LoginRequestDto dto) {
       return authService.login(dto);
   }
 
 
   @PostMapping("/refresh")
-  public AuthResponseDto refreshToken(@RequestBody RefreshTokenRequestDto dto) {
+  public AuthResponseDto refreshToken(@Valid @RequestBody RefreshTokenRequestDto dto) {
     return authService.refreshAccessToken(dto);
   }
 }

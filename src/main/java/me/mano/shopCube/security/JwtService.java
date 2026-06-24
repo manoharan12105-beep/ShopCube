@@ -37,7 +37,7 @@ public class JwtService {
               .issuedAt(new Date())
               .expiration(
                 new Date(
-                  System.currentTimeMillis() + 1000 * 60 * 15 // 15 Mins
+                  System.currentTimeMillis() + 1000 * 60 * 60 // 1 Hour
                 )
               )
               .signWith(getAccessSigningKey())
@@ -100,6 +100,7 @@ public class JwtService {
     .parseSignedClaims(token) -> Parses JWT 
 
     .getPayload() -> 
+    
             {
               "sub":"mano@gmail.com",
               "role":"USER",

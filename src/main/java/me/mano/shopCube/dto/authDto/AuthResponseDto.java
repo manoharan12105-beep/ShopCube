@@ -1,4 +1,4 @@
-package me.mano.shopCube.dto;
+package me.mano.shopCube.dto.authDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
