@@ -1,6 +1,10 @@
 package me.mano.shopCube.entity;
 
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import me.mano.shopCube.enums.Category;
 
 import jakarta.persistence.Entity;
@@ -23,7 +27,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotBlank
@@ -43,7 +47,9 @@ public class Product {
 
   private String imageUrl;
 
+  @CreationTimestamp
   private LocalDateTime createdAt  = LocalDateTime.now();
 
+  @UpdateTimestamp
   private LocalDateTime updatedAt = LocalDateTime.now();
 }

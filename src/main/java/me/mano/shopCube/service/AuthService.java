@@ -9,10 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import me.mano.shopCube.security.JwtService;
-import me.mano.shopCube.dto.AuthResponseDto;
-import me.mano.shopCube.dto.LoginRequestDto;
-import me.mano.shopCube.dto.RefreshTokenRequestDto;
-import me.mano.shopCube.dto.RegisterRequestDto;
+import me.mano.shopCube.dto.authDto.AuthResponseDto;
+import me.mano.shopCube.dto.authDto.LoginRequestDto;
+import me.mano.shopCube.dto.authDto.RefreshTokenRequestDto;
+import me.mano.shopCube.dto.authDto.RegisterRequestDto;
 import me.mano.shopCube.entity.RefreshToken;
 import me.mano.shopCube.entity.Users;
 import me.mano.shopCube.enums.Role;
@@ -66,7 +66,7 @@ public class AuthService {
 
     String refreshToken = jwtService.generateRefreshToken(user);
 
-   refreshTokenRepo.findByUser(user)
+    refreshTokenRepo.findByUser(user)
     .ifPresent(existingToken -> {
         refreshTokenRepo.delete(existingToken);
     });
