@@ -55,7 +55,7 @@ public class JwtService {
             Authentication
             Authorization
 
-      Lifetime : 15 Minutes 
+      Lifetime : 60 Minutes
     */
   }
 

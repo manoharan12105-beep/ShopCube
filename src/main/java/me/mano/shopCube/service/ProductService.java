@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import me.mano.shopCube.dto.productDto.ProductRequestDto;
@@ -25,8 +26,18 @@ public class ProductService {
 
 
   // Get all products list
-  public List<ProductResponseDto> getAllProducts() {
-    List<Product> product = productRepo.findAll();
+  public List<ProductResponseDto> getAllProducts(Pageable pageable, String search) {
+
+    List<Product> product;
+    if(search.isBlank()) {
+      product = productRepo.findAll(pageable).getContent();
+    } else {
+      product = productRepo.findByName(search, pageable).getContent();
+    }
+
+
+
+
     List<ProductResponseDto> dtoList = new ArrayList<>();
 
     for (Product prod : product) {
@@ -102,5 +113,18 @@ public class ProductService {
 
     return dtoList;
 
+  }
+
+
+
+  public List<ProductResponseDto> getProductByName(String name) {
+    List<Product> prodList = productRepo.findByNameContainingIgnoreCase(name);
+    List<ProductResponseDto> dtoList = new ArrayList<>();
+
+    for (Product prod : prodList) {
+      dtoList.add(mapToDto(prod));
+    }
+
+    return dtoList;
   }
 }
