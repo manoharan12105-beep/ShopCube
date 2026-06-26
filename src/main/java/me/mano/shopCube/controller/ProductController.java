@@ -60,7 +60,7 @@ public class ProductController {
       sort = Sort.by(sortBy).ascending();
     }
     else {
-      sort = sort.by(sortBy).descending();
+      sort = Sort.by(sortBy).descending();
     }
 
     return productService.getAllProducts(PageRequest.of(pageNo - 1, pageSize, sort), search);
