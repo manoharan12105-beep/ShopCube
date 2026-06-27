@@ -127,4 +127,20 @@ public class ProductService {
 
     return dtoList;
   }
+
+
+
+
+  public List<ProductResponseDto> getProductsBelowPrice(double price) {
+
+    List<Product> products = productRepo.findByPriceLessThan(price);
+
+    List<ProductResponseDto> dtoList = new ArrayList<>();
+
+    for (Product product : products) {
+        dtoList.add(mapToDto(product));
+    }
+
+    return dtoList;
+}
 }

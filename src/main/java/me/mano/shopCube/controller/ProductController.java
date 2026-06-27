@@ -90,4 +90,9 @@ public class ProductController {
     return productService.getProductByName(name);
 
   }
+
+  @GetMapping("/get/belowPrice/{price}")
+  public List<ProductResponseDto> getProductsBelowPrice(@PathVariable double price) {
+      return productService.getProductsBelowPrice(price);
+  }
 }
